@@ -1,0 +1,4 @@
+
+git_hut:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
