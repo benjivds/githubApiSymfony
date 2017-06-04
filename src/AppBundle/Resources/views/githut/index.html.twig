@@ -7,6 +7,6 @@
     </div>
 
     <div class="col-sm-9">
-        {% include 'AppBundle:githut:repos.html.twig' %}
+        {{ render(controller('AppBundle:GitHut:Repos',{'username':username}))}}
     </div>
 {% endblock %}

@@ -34,8 +34,6 @@ class GitHutController extends Controller
      */
      public function reposAction(Request $request, $username){
          $profileData = $this->get('github_api')->getRepos($username);
-         dump($profileData);
-         exit;
          return $this->render('AppBundle:githut:repos.html.twig',$profileData);
      }
 
