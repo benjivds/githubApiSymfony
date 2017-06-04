@@ -1,14 +1,11 @@
-
 {% extends 'AppBundle::base.html.twig' %}
 
 {% block body %}
     <div class="col-sm-3">
-
         {% include 'AppBundle:githut:profile.html.twig' %}
-
     </div>
 
     <div class="col-sm-9">
-        Repos to go here in next video
+        {% include 'AppBundle:githut:repos.html.twig' %}
     </div>
 {% endblock %}
