@@ -6,32 +6,18 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
-class GitHutControllerController extends Controller
+class GitHutController extends Controller
 {
     /**
-     * @Route("/githut", name="githut")
+     * @Route("/githut/{username}", name="githut", defaults = {"username":"benjivds"})
      */
-    public function githutAction(Request $request)
+    public function githutAction(Request $request, $username)
     {
         $templateData = [
-            'avatar_url'  => 'https://avatars.githubusercontent.com/u/12968163?v=3',
-            'name'        => 'Code Review Videos',
-            'username'    => 'Username',
-            'login'       => 'codereviewvideos',
-            'details'     => [
-                'company'   => 'Code Review Videos',
-                'location'  => 'Preston, Lancs, UK',
-                'joined_on' => 'Joined on Fake Date For Now',
-            ],
-            'blog'        => 'https://codereviewvideos.com/',
-            'social_data' => [
-                'followers'    => 11,
-                'following'    => 22,
-                'public_repos' => 33,
-            ],
+            'username' => $username,
             // new data here
             'repo_count' => 100,
-            'most_stars' => 50,
+            'most_stars' => 7,
             'repos' => [
                 [
                     'url' => 'https://codereviewvideos.com',
@@ -51,11 +37,20 @@ class GitHutControllerController extends Controller
                     'description' => 'another fake repo description',
                     'stargazers_count' => '333',
                 ],
-            ],
-        ];
+            ]
+            ];
 
         return $this->render('AppBundle:githut:index.html.twig', $templateData);
     }
+
+     /**
+     * @Route("/githut/profile/{username}", name="githut/profile", defaults = {"username":"benjivds"})
+     */
+     public function profileAction(Request $request, $username){
+         $profileData = $this->get('github_api')->getProfile($username);
+         return $this->render('AppBundle:githut:profile.html.twig',$profileData);
+     }
+
 
 
 

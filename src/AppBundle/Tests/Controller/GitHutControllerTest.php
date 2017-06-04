@@ -4,7 +4,7 @@ namespace AppBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class GitHutControllerControllerTest extends WebTestCase
+class GitHutControllerTest extends WebTestCase
 {
     public function testGithut()
     {
