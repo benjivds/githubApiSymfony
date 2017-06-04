@@ -13,35 +13,13 @@ class GitHutController extends Controller
      */
     public function githutAction(Request $request, $username)
     {
-        $templateData = [
-            'username' => $username,
-            // new data here
-            'repo_count' => 100,
-            'most_stars' => 7,
-            'repos' => [
-                [
-                    'url' => 'https://codereviewvideos.com',
-                    'name' => 'Code Review Videos',
-                    'description' => 'some repo description',
-                    'stargazers_count' => '999',
-                ],
-                [
-                    'url' => 'http://bbc.co.uk',
-                    'name' => 'The BBC',
-                    'description' => 'not a real repo',
-                    'stargazers_count' => '666',
-                ],
-                [
-                    'url' => 'http://google.co.uk',
-                    'name' => 'Google',
-                    'description' => 'another fake repo description',
-                    'stargazers_count' => '333',
-                ],
-            ]
-            ];
+        $reposData = $this->get('github_api')->getRepos($username);
+        $templateData = $reposData;
 
         return $this->render('AppBundle:githut:index.html.twig', $templateData);
     }
+
+    
 
      /**
      * @Route("/githut/profile/{username}", name="githut/profile", defaults = {"username":"benjivds"})
@@ -51,6 +29,15 @@ class GitHutController extends Controller
          return $this->render('AppBundle:githut:profile.html.twig',$profileData);
      }
 
+    /**
+     * @Route("/githut/repos/{username}", name="githut/repos", defaults = {"username":"benjivds"})
+     */
+     public function reposAction(Request $request, $username){
+         $profileData = $this->get('github_api')->getRepos($username);
+         dump($profileData);
+         exit;
+         return $this->render('AppBundle:githut:repos.html.twig',$profileData);
+     }
 
 
 

@@ -30,4 +30,20 @@ class GitHubApi
             ];
     }
 
+    public function getRepos($username){
+        $client = new \GuzzleHttp\Client();
+        $response = $client->request('GET', 'https://api.github.com/users/' . $username .'/repos');
+
+        $data = json_decode($response->getBody()->getContents(),true);
+        
+        return [
+            'username' => $username,
+            'repo_count' => count($data),
+            'most_stars' => array_reduce($data, function($mostStars, $currentRepo){
+                return $currentRepo['stargazers_count'] > $mostStars ? $currentRepo['stargazers_count'] : $mostStars;
+            },0),
+            'repos' =>$data
+            ];
+    }
+
 }
